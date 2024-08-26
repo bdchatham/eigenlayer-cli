@@ -30,7 +30,6 @@ import (
 	gethcommon "github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethclient"
 
-	"github.com/urfave/cli/v2"
 	orderedmap "github.com/wk8/go-ordered-map/v2"
 )
 
@@ -38,9 +37,9 @@ type elChainReader interface {
 	GetDistributionRootsLength(ctx context.Context) (*big.Int, error)
 	GetRootIndexFromHash(ctx context.Context, hash [32]byte) (uint32, error)
 	GetCurrentClaimableDistributionRoot(
-		ctx context.Context,
-	) (rewardscoordinator.IRewardsCoordinatorDistributionRoot, error)
-	CurrRewardsCalculationEndTimestamp(ctx context.Context) (uint32, error)
+		opts *bind.CallOpts,
+	) (rewardscoordinator.IRewardsCoordinatorTypesDistributionRoot, error)
+	CurrRewardsCalculationEndTimestamp(opts *bind.CallOpts) (uint32, error)
 }
 
 func ClaimCmd(p utils.Prompter) *cli.Command {

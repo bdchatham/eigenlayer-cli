@@ -22,7 +22,6 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/urfave/cli/v2"
 	orderedmap "github.com/wk8/go-ordered-map/v2"
 )
 
@@ -78,8 +77,8 @@ func (f *fakeELReader) GetRootIndexFromHash(ctx context.Context, hash [32]byte) 
 }
 
 func (f *fakeELReader) GetCurrentClaimableDistributionRoot(
-	ctx context.Context,
-) (rewardscoordinator.IRewardsCoordinatorDistributionRoot, error) {
+	opts *bind.CallOpts,
+) (rewardscoordinator.IRewardsCoordinatorTypesDistributionRoot, error) {
 	// iterate from end to start since we want the latest active root
 	// and the roots are sorted in ascending order of activation time
 	for i := len(f.roots) - 1; i >= 0; i-- {

@@ -14,8 +14,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/urfave/cli/v2"
-
 	"github.com/Layr-Labs/eigenlayer-cli/pkg/internal/common/flags"
 	"github.com/Layr-Labs/eigenlayer-cli/pkg/types"
 	"github.com/Layr-Labs/eigenlayer-cli/pkg/utils"
@@ -553,4 +551,15 @@ func Sign(digest []byte, cfg types.SignerConfig, p utils.Prompter) ([]byte, erro
 	}
 
 	return signed, nil
+}
+
+func GetEnvFromNetwork(network string) string {
+	switch network {
+	case utils.HoleskyNetworkName:
+		return "testnet"
+	case utils.MainnetNetworkName:
+		return "mainnet"
+	default:
+		return "local"
+	}
 }

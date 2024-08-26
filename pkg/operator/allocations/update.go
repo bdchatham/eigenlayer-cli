@@ -19,7 +19,7 @@ import (
 	"github.com/Layr-Labs/eigenlayer-cli/pkg/utils"
 
 	"github.com/Layr-Labs/eigensdk-go/chainio/clients/elcontracts"
-	allocationmanager "github.com/Layr-Labs/eigensdk-go/contracts/bindings/AllocationManager"
+	contractIAllocationManager "github.com/Layr-Labs/eigensdk-go/contracts/bindings/IAllocationManager"
 	"github.com/Layr-Labs/eigensdk-go/logging"
 	eigenSdkUtils "github.com/Layr-Labs/eigensdk-go/utils"
 
@@ -200,7 +200,11 @@ func generateAllocationsParams(
 	config *updateConfig,
 	logger logging.Logger,
 ) (*BulkModifyAllocations, error) {
+<<<<<<< HEAD
 	allocations := make([]allocationmanager.IAllocationManagerTypesMagnitudeAllocation, 0)
+=======
+	allocations := make([]contractIAllocationManager.IAllocationManagerTypesMagnitudeAllocation, 0)
+>>>>>>> 030a6bb (feat: slashing commands)
 	var allocatableMagnitudes map[gethcommon.Address]uint64
 
 	var err error
@@ -226,10 +230,17 @@ func generateAllocationsParams(
 		logger.Debugf("Bips to allocate: %d", config.bipsToAllocate)
 		magnitudeToUpdate := calculateMagnitudeToUpdate(magnitude[0], config.bipsToAllocate)
 		logger.Debugf("Magnitude to update: %d", magnitudeToUpdate)
+<<<<<<< HEAD
 		malloc := allocationmanager.IAllocationManagerTypesMagnitudeAllocation{
 			Strategy:             config.strategyAddress,
 			ExpectedMaxMagnitude: magnitude[0],
 			OperatorSets: []allocationmanager.OperatorSet{
+=======
+		malloc := contractIAllocationManager.IAllocationManagerTypesMagnitudeAllocation{
+			Strategy:             config.strategyAddress,
+			ExpectedMaxMagnitude: magnitude[0],
+			OperatorSets: []contractIAllocationManager.OperatorSet{
+>>>>>>> 030a6bb (feat: slashing commands)
 				{
 					Avs:           config.avsAddress,
 					OperatorSetId: config.operatorSetId,
@@ -255,7 +266,11 @@ func computeAllocations(
 	filePath string,
 	operatorAddress gethcommon.Address,
 	elReader elChainReader,
+<<<<<<< HEAD
 ) ([]allocationmanager.IAllocationManagerTypesMagnitudeAllocation, map[gethcommon.Address]uint64, error) {
+=======
+) ([]contractIAllocationManager.IAllocationManagerTypesMagnitudeAllocation, map[gethcommon.Address]uint64, error) {
+>>>>>>> 030a6bb (feat: slashing commands)
 	allocations, err := parseAllocationsCSV(filePath)
 	if err != nil {
 		return nil, nil, eigenSdkUtils.WrapError("failed to parse allocations csv", err)
@@ -385,9 +400,15 @@ func parseAllocationsCSV(filePath string) ([]allocation, error) {
 func convertAllocationsToMagnitudeAllocations(
 	allocations []allocation,
 	strategyTotalMagnitudes map[gethcommon.Address]uint64,
+<<<<<<< HEAD
 ) []allocationmanager.IAllocationManagerTypesMagnitudeAllocation {
 	magnitudeAllocations := make([]allocationmanager.IAllocationManagerTypesMagnitudeAllocation, 0)
 	operatorSetsPerStragyMap := make(map[gethcommon.Address][]allocationmanager.OperatorSet)
+=======
+) []contractIAllocationManager.IAllocationManagerTypesMagnitudeAllocation {
+	magnitudeAllocations := make([]contractIAllocationManager.IAllocationManagerTypesMagnitudeAllocation, 0)
+	operatorSetsPerStragyMap := make(map[gethcommon.Address][]contractIAllocationManager.OperatorSet)
+>>>>>>> 030a6bb (feat: slashing commands)
 	magnitudeAllocationsPerStrategyMap := make(map[gethcommon.Address][]uint64)
 	for _, a := range allocations {
 		totalMag := strategyTotalMagnitudes[a.StrategyAddress]
@@ -395,9 +416,15 @@ func convertAllocationsToMagnitudeAllocations(
 
 		operatorSets, ok := operatorSetsPerStragyMap[a.StrategyAddress]
 		if !ok {
+<<<<<<< HEAD
 			operatorSets = make([]allocationmanager.OperatorSet, 0)
 		}
 		operatorSets = append(operatorSets, allocationmanager.OperatorSet{
+=======
+			operatorSets = make([]contractIAllocationManager.OperatorSet, 0)
+		}
+		operatorSets = append(operatorSets, contractIAllocationManager.OperatorSet{
+>>>>>>> 030a6bb (feat: slashing commands)
 			Avs:           a.AvsAddress,
 			OperatorSetId: a.OperatorSetId,
 		})
@@ -411,7 +438,11 @@ func convertAllocationsToMagnitudeAllocations(
 	for strategy, operatorSets := range operatorSetsPerStragyMap {
 		magnitudeAllocations = append(
 			magnitudeAllocations,
+<<<<<<< HEAD
 			allocationmanager.IAllocationManagerTypesMagnitudeAllocation{
+=======
+			contractIAllocationManager.IAllocationManagerTypesMagnitudeAllocation{
+>>>>>>> 030a6bb (feat: slashing commands)
 				Strategy:             strategy,
 				ExpectedMaxMagnitude: strategyTotalMagnitudes[strategy],
 				OperatorSets:         operatorSets,

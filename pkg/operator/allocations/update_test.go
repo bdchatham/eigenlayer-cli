@@ -9,7 +9,7 @@ import (
 
 	"github.com/Layr-Labs/eigenlayer-cli/pkg/internal/testutils"
 
-	allocationmanager "github.com/Layr-Labs/eigensdk-go/contracts/bindings/AllocationManager"
+	contractIAllocationManager "github.com/Layr-Labs/eigensdk-go/contracts/bindings/IAllocationManager"
 	"github.com/Layr-Labs/eigensdk-go/logging"
 
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
@@ -98,11 +98,19 @@ func TestGenerateAllocationsParams(t *testing.T) {
 			},
 			expectError: false,
 			expectedAllocations: &BulkModifyAllocations{
+<<<<<<< HEAD
 				Allocations: []allocationmanager.IAllocationManagerTypesMagnitudeAllocation{
 					{
 						Strategy:             gethcommon.HexToAddress(strategyAddress),
 						ExpectedMaxMagnitude: initialMagnitude,
 						OperatorSets: []allocationmanager.OperatorSet{
+=======
+				Allocations: []contractIAllocationManager.IAllocationManagerTypesMagnitudeAllocation{
+					{
+						Strategy:             gethcommon.HexToAddress(strategyAddress),
+						ExpectedMaxMagnitude: initialMagnitude,
+						OperatorSets: []contractIAllocationManager.OperatorSet{
+>>>>>>> 030a6bb (feat: slashing commands)
 							{
 								OperatorSetId: 1,
 								Avs:           gethcommon.HexToAddress(avsAddress),
@@ -121,11 +129,19 @@ func TestGenerateAllocationsParams(t *testing.T) {
 			},
 			expectError: false,
 			expectedAllocations: &BulkModifyAllocations{
+<<<<<<< HEAD
 				Allocations: []allocationmanager.IAllocationManagerTypesMagnitudeAllocation{
 					{
 						Strategy:             gethcommon.HexToAddress("0x49989b32351Eb9b8ab2d5623cF22E7F7C23e5630"),
 						ExpectedMaxMagnitude: initialMagnitude,
 						OperatorSets: []allocationmanager.OperatorSet{
+=======
+				Allocations: []contractIAllocationManager.IAllocationManagerTypesMagnitudeAllocation{
+					{
+						Strategy:             gethcommon.HexToAddress("0x49989b32351Eb9b8ab2d5623cF22E7F7C23e5630"),
+						ExpectedMaxMagnitude: initialMagnitude,
+						OperatorSets: []contractIAllocationManager.OperatorSet{
+>>>>>>> 030a6bb (feat: slashing commands)
 							{
 								OperatorSetId: 1,
 								Avs:           gethcommon.HexToAddress("0x2222AAC0C980Cc029624b7ff55B88Bc6F63C538f"),
@@ -140,7 +156,11 @@ func TestGenerateAllocationsParams(t *testing.T) {
 					{
 						Strategy:             gethcommon.HexToAddress("0x232326fE4F8C2f83E3eB2318F090557b7CD02222"),
 						ExpectedMaxMagnitude: initialMagnitude,
+<<<<<<< HEAD
 						OperatorSets: []allocationmanager.OperatorSet{
+=======
+						OperatorSets: []contractIAllocationManager.OperatorSet{
+>>>>>>> 030a6bb (feat: slashing commands)
 							{
 								OperatorSetId: 4,
 								Avs:           gethcommon.HexToAddress("0x111116fE4F8C2f83E3eB2318F090557b7CD0BF76"),
@@ -151,7 +171,11 @@ func TestGenerateAllocationsParams(t *testing.T) {
 					{
 						Strategy:             gethcommon.HexToAddress("0x545456fE4F8C2f83E3eB2318F090557b7CD04567"),
 						ExpectedMaxMagnitude: initialMagnitude,
+<<<<<<< HEAD
 						OperatorSets: []allocationmanager.OperatorSet{
+=======
+						OperatorSets: []contractIAllocationManager.OperatorSet{
+>>>>>>> 030a6bb (feat: slashing commands)
 							{
 								OperatorSetId: 5,
 								Avs:           gethcommon.HexToAddress("0x111116fE4F8C2f83E3eB2318F090557b7CD0BF76"),
