@@ -103,4 +103,12 @@ var (
 		Usage:   "environment to use. Currently supports 'preprod' ,'testnet' and 'prod'. If not provided, it will be inferred based on network",
 		EnvVars: []string{"ENVIRONMENT"},
 	}
+
+	ExpiryFlag = cli.Int64Flag{
+		Name:    "expiry",
+		Aliases: []string{"e"},
+		Usage:   "expiry in seconds",
+		EnvVars: []string{"EXPIRY"},
+		Value:   3600,
+	}
 )

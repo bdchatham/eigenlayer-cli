@@ -18,6 +18,7 @@ func OperatorCmd(p utils.Prompter) *cli.Command {
 			operator.UpdateCmd(p),
 			operator.UpdateMetadataURICmd(p),
 			operator.AllocationsCmd(p),
+			operator.GetApprovalCmd(p),
 		},
 	}
 
