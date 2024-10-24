@@ -19,7 +19,7 @@ import (
 	"github.com/Layr-Labs/eigenlayer-cli/pkg/utils"
 
 	"github.com/Layr-Labs/eigensdk-go/chainio/clients/elcontracts"
-	contractIAllocationManager "github.com/Layr-Labs/eigensdk-go/contracts/bindings/IAllocationManager"
+	allocationmanager "github.com/Layr-Labs/eigensdk-go/contracts/bindings/AllocationManager"
 	"github.com/Layr-Labs/eigensdk-go/logging"
 	eigenSdkUtils "github.com/Layr-Labs/eigensdk-go/utils"
 
@@ -200,7 +200,7 @@ func generateAllocationsParams(
 	config *updateConfig,
 	logger logging.Logger,
 ) (*BulkModifyAllocations, error) {
-	allocations := make([]contractIAllocationManager.IAllocationManagerTypesMagnitudeAllocation, 0)
+	allocations := make([]allocationmanager.IAllocationManagerTypesMagnitudeAllocation, 0)
 	var allocatableMagnitudes map[gethcommon.Address]uint64
 
 	var err error
@@ -226,10 +226,10 @@ func generateAllocationsParams(
 		logger.Debugf("Bips to allocate: %d", config.bipsToAllocate)
 		magnitudeToUpdate := calculateMagnitudeToUpdate(magnitude[0], config.bipsToAllocate)
 		logger.Debugf("Magnitude to update: %d", magnitudeToUpdate)
-		malloc := contractIAllocationManager.IAllocationManagerTypesMagnitudeAllocation{
+		malloc := allocationmanager.IAllocationManagerTypesMagnitudeAllocation{
 			Strategy:             config.strategyAddress,
 			ExpectedMaxMagnitude: magnitude[0],
-			OperatorSets: []contractIAllocationManager.OperatorSet{
+			OperatorSets: []allocationmanager.OperatorSet{
 				{
 					Avs:           config.avsAddress,
 					OperatorSetId: config.operatorSetId,
@@ -255,7 +255,7 @@ func computeAllocations(
 	filePath string,
 	operatorAddress gethcommon.Address,
 	elReader elChainReader,
-) ([]contractIAllocationManager.IAllocationManagerTypesMagnitudeAllocation, map[gethcommon.Address]uint64, error) {
+) ([]allocationmanager.IAllocationManagerTypesMagnitudeAllocation, map[gethcommon.Address]uint64, error) {
 	allocations, err := parseAllocationsCSV(filePath)
 	if err != nil {
 		return nil, nil, eigenSdkUtils.WrapError("failed to parse allocations csv", err)
@@ -385,9 +385,9 @@ func parseAllocationsCSV(filePath string) ([]allocation, error) {
 func convertAllocationsToMagnitudeAllocations(
 	allocations []allocation,
 	strategyTotalMagnitudes map[gethcommon.Address]uint64,
-) []contractIAllocationManager.IAllocationManagerTypesMagnitudeAllocation {
-	magnitudeAllocations := make([]contractIAllocationManager.IAllocationManagerTypesMagnitudeAllocation, 0)
-	operatorSetsPerStragyMap := make(map[gethcommon.Address][]contractIAllocationManager.OperatorSet)
+) []allocationmanager.IAllocationManagerTypesMagnitudeAllocation {
+	magnitudeAllocations := make([]allocationmanager.IAllocationManagerTypesMagnitudeAllocation, 0)
+	operatorSetsPerStragyMap := make(map[gethcommon.Address][]allocationmanager.OperatorSet)
 	magnitudeAllocationsPerStrategyMap := make(map[gethcommon.Address][]uint64)
 	for _, a := range allocations {
 		totalMag := strategyTotalMagnitudes[a.StrategyAddress]
@@ -395,9 +395,9 @@ func convertAllocationsToMagnitudeAllocations(
 
 		operatorSets, ok := operatorSetsPerStragyMap[a.StrategyAddress]
 		if !ok {
-			operatorSets = make([]contractIAllocationManager.OperatorSet, 0)
+			operatorSets = make([]allocationmanager.OperatorSet, 0)
 		}
-		operatorSets = append(operatorSets, contractIAllocationManager.OperatorSet{
+		operatorSets = append(operatorSets, allocationmanager.OperatorSet{
 			Avs:           a.AvsAddress,
 			OperatorSetId: a.OperatorSetId,
 		})
@@ -411,7 +411,7 @@ func convertAllocationsToMagnitudeAllocations(
 	for strategy, operatorSets := range operatorSetsPerStragyMap {
 		magnitudeAllocations = append(
 			magnitudeAllocations,
-			contractIAllocationManager.IAllocationManagerTypesMagnitudeAllocation{
+			allocationmanager.IAllocationManagerTypesMagnitudeAllocation{
 				Strategy:             strategy,
 				ExpectedMaxMagnitude: strategyTotalMagnitudes[strategy],
 				OperatorSets:         operatorSets,

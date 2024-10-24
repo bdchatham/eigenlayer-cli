@@ -11,13 +11,13 @@ import (
 
 	"github.com/Layr-Labs/eigenlayer-cli/pkg/types"
 
-	contractIAllocationManager "github.com/Layr-Labs/eigensdk-go/contracts/bindings/IAllocationManager"
+	allocationmanager "github.com/Layr-Labs/eigensdk-go/contracts/bindings/AllocationManager"
 
 	gethcommon "github.com/ethereum/go-ethereum/common"
 )
 
 type BulkModifyAllocations struct {
-	Allocations           []contractIAllocationManager.IAllocationManagerTypesMagnitudeAllocation
+	Allocations           []allocationmanager.IAllocationManagerTypesMagnitudeAllocation
 	AllocatableMagnitudes map[gethcommon.Address]uint64
 }
 

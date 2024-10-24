@@ -11,7 +11,7 @@ import (
 	"github.com/Layr-Labs/eigenlayer-cli/pkg/utils"
 
 	"github.com/Layr-Labs/eigensdk-go/chainio/clients/elcontracts"
-	contractIAllocationManager "github.com/Layr-Labs/eigensdk-go/contracts/bindings/IAllocationManager"
+	allocationmanager "github.com/Layr-Labs/eigensdk-go/contracts/bindings/AllocationManager"
 	"github.com/Layr-Labs/eigensdk-go/logging"
 	eigenSdkUtils "github.com/Layr-Labs/eigensdk-go/utils"
 
@@ -272,7 +272,7 @@ func getSharesFromMagnitude(totalScaledShare *big.Int, magnitude uint64) (*big.I
 	return shares, percentageSharesFloat
 }
 
-func getUniqueKey(strategyAddress gethcommon.Address, opSet contractIAllocationManager.OperatorSet) string {
+func getUniqueKey(strategyAddress gethcommon.Address, opSet allocationmanager.OperatorSet) string {
 	return fmt.Sprintf("%s-%s-%d", strategyAddress.String(), opSet.Avs.String(), opSet.OperatorSetId)
 }
 
