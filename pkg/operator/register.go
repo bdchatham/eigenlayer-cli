@@ -13,7 +13,6 @@ import (
 	elContracts "github.com/Layr-Labs/eigensdk-go/chainio/clients/elcontracts"
 	eigenSdkUtils "github.com/Layr-Labs/eigensdk-go/utils"
 
-	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	gethcommon "github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethclient"
 
@@ -92,7 +91,7 @@ func RegisterCmd(p utils.Prompter) *cli.Command {
 				return err
 			}
 
-			status, err := elReader.IsOperatorRegistered(&bind.CallOpts{Context: ctx}, operatorCfg.Operator)
+			status, err := elReader.IsOperatorRegistered(ctx, operatorCfg.Operator)
 			if err != nil {
 				return err
 			}
@@ -102,6 +101,7 @@ func RegisterCmd(p utils.Prompter) *cli.Command {
 				if err != nil {
 					return err
 				}
+
 				common.PrintRegistrationInfo(
 					receipt.TxHash.String(),
 					gethcommon.HexToAddress(operatorCfg.Operator.Address),
