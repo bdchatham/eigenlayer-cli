@@ -17,11 +17,7 @@ import (
 )
 
 type BulkModifyAllocations struct {
-<<<<<<< HEAD
-	Allocations           []allocationmanager.IAllocationManagerTypesMagnitudeAllocation
-=======
 	Allocations           []contractIAllocationManager.IAllocationManagerTypesMagnitudeAllocation
->>>>>>> 030a6bb (feat: slashing commands)
 	AllocatableMagnitudes map[gethcommon.Address]uint64
 }
 
