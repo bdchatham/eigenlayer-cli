@@ -41,13 +41,14 @@ import (
 const (
 	mainnet             = "mainnet"
 	testnet             = "testnet"
+	sepolia             = "testnet"
 	local               = "local"
 	selectorHexIdLength = 10
 	addressPrefix       = "0x"
 )
 
 var ChainMetadataMap = map[int64]types.ChainMetadata{
-	MainnetChainId: {
+	utils.MainnetChainId: {
 		BlockExplorerUrl:              "https://etherscan.io/tx",
 		ELDelegationManagerAddress:    "0x39053D51B77DC0d36036Fc1fCc8Cb819df8Ef37A",
 		ELAVSDirectoryAddress:         "0x135dda560e946695d6f155dacafc6f1f25c1f5af",
@@ -56,7 +57,7 @@ var ChainMetadataMap = map[int64]types.ChainMetadata{
 		WebAppUrl:                     "https://app.eigenlayer.xyz/operator",
 		SidecarHttpRpcURL:             "https://sidecar-rpc.eigenlayer.xyz/mainnet",
 	},
-	HoleskyChainId: {
+	utils.HoleskyChainId: {
 		BlockExplorerUrl:              "https://holesky.etherscan.io/tx",
 		ELDelegationManagerAddress:    "0xA44151489861Fe9e3055d95adC98FbD462B948e7",
 		ELAVSDirectoryAddress:         "0x055733000064333CaDDbC92763c58BF0192fFeBf",
@@ -65,7 +66,16 @@ var ChainMetadataMap = map[int64]types.ChainMetadata{
 		WebAppUrl:                     "https://holesky.eigenlayer.xyz/operator",
 		SidecarHttpRpcURL:             "https://sidecar-rpc.eigenlayer.xyz/holesky",
 	},
-	AnvilChainId: {
+	utils.SepoliaChainId: {
+		BlockExplorerUrl:              "https://holesky.etherscan.io/tx",
+		ELDelegationManagerAddress:    "",
+		ELAVSDirectoryAddress:         "",
+		ELRewardsCoordinatorAddress:   "",
+		ELPermissionControllerAddress: "",
+		WebAppUrl:                     "",
+		SidecarHttpRpcURL:             "",
+	},
+	utils.AnvilChainId: {
 		BlockExplorerUrl:              "",
 		ELDelegationManagerAddress:    "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
 		ELAVSDirectoryAddress:         "0x0165878A594ca255338adfa4d48449f69242Eb8F",
@@ -609,6 +619,8 @@ func GetEnvFromNetwork(network string) string {
 		return testnet
 	case utils.MainnetNetworkName:
 		return mainnet
+	case utils.SepoliaNetworkName:
+		return utils.SepoliaNetworkName
 	default:
 		return local
 	}

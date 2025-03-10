@@ -98,7 +98,7 @@ func (d DeregisterOperatorSetsCmd) Execute(cCtx *cli.Context) error {
 		if err != nil {
 			return err
 		}
-		// If operator is a smart contract, we can't estimate gas using geth
+		// If caller is a smart contract, we can't estimate gas using geth
 		// since balance of contract can be 0, as it can be called by an EOA
 		// to claim. So we hardcode the gas limit to 150_000 so that we can
 		// create unsigned tx without gas limit estimation from contract bindings
@@ -118,7 +118,7 @@ func (d DeregisterOperatorSetsCmd) Execute(cCtx *cli.Context) error {
 			return eigenSdkUtils.WrapError("failed to create unsigned transaction", err)
 		}
 
-		if config.outputType == string(common.OutputType_Calldata) {
+		if config.outputType == utils.CallData {
 			calldataHex := gethcommon.Bytes2Hex(unsignedTx.Data())
 			if !common.IsEmptyString(config.output) {
 				err = common.WriteToFile([]byte(calldataHex), config.output)

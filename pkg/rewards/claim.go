@@ -393,7 +393,7 @@ func broadcastClaims(
 			return eigenSdkUtils.WrapError("failed to create unsigned tx", err)
 		}
 
-		if config.OutputType == string(common.OutputType_Calldata) {
+		if config.OutputType == utils.CallData {
 			calldataHex := gethcommon.Bytes2Hex(unsignedTx.Data())
 
 			if !common.IsEmptyString(config.Output) {
@@ -405,7 +405,7 @@ func broadcastClaims(
 			} else {
 				fmt.Println(calldataHex)
 			}
-		} else if config.OutputType == string(common.OutputType_Json) {
+		} else if config.OutputType == utils.Json {
 			for _, claim := range proofs {
 				solidityClaim := formatProofForSolidity(claim)
 				jsonData, err := json.MarshalIndent(solidityClaim, "", "  ")
